@@ -36,7 +36,7 @@
 
 .cases h2, .use h2 { font-size: clamp(29px, 3.15vw, 47px); line-height: 1.2; letter-spacing: -.03em; }
 .cases h2 { margin-bottom: 16px; }
-.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(13px, 1.6vw, 24px); }
+.case-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(13px, 1.6vw, 24px); }
 .case {
   display: flex;
   flex-direction: column;
@@ -61,8 +61,6 @@
 .case-art.coral { background: #fbe2ed; }
 .case-art.coral img { width: min(50%, 182px); }
 .case-art.violet { background: #dfe0fa; }
-.case-art.blue { background: #d4e5fb; }
-.case-art.blue img { width: min(38%, 140px); }
 .case-caption { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 9px; padding: 11px clamp(13px, 1.65vw, 25px) 13px; }
 .case-caption h3 { margin: 0; line-height: 1.25; font-size: clamp(17px, 1.8vw, 27px); }
 .case-caption p { color: var(--muted); font-size: clamp(13px, 1.28vw, 20px); }

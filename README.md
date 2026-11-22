@@ -2,7 +2,7 @@
 
 OnOSaN_Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill。使用者描述新项目里的场景，AI 按案例选择或调整形象，把动效接到已有的业务状态，再验证实际入口。
 
-[下载 v0.1.0 Skill 包](OnOSaN_Mascot-v0.1.0.zip) · [阅读 SKILL.md](skills/onosan-mascot/SKILL.md) · [查看案例索引](index.html)
+[下载 v0.1.1 Skill 包](OnOSaN_Mascot-v0.1.1.zip) · [阅读 SKILL.md](skills/onosan-mascot/SKILL.md) · [查看案例索引](index.html)
 
 ## 别人怎么用
 
@@ -12,7 +12,7 @@ OnOSaN_Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 
 > 用 OnOSaN_Mascot 给我的听写浮窗加一个角色。参考 `voice-status`，使用我提供的角色图，把动效接到现有的待机、录音和转写状态。
 
-本地打开仓库根目录的 `index.html` 可以浏览三个案例。也可以直接双击解压目录内每个案例的 `preview.html`，切换状态、底色、尺寸和减少动态效果。
+本地打开仓库根目录的 `index.html` 可以浏览两个案例。也可以直接双击解压目录内每个案例的 `preview.html`，切换状态、底色、尺寸和减少动态效果。
 
 ## 我们这里存了什么
 
@@ -21,13 +21,12 @@ OnOSaN_Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 | AI 指引 | `SKILL.md` 说明适用场景、案例入口、接入和验收方法。 |
 | 形象 | 可编辑的 SVG、透明 PNG、配色、实际尺寸和原产品设计参考。 |
 | 动效 | 可复用的 CSS、对应状态、节奏、循环和结束条件。 |
-| 交互 | 可运行的预览，来源与使用说明，以及声音、Bot 任务或未读提醒怎样触发界面反馈。 |
+| 交互 | 可运行的预览，来源与使用说明，以及录音和 Bot 任务的状态怎样触发界面反馈。 |
 
 | 案例 | 预览和接入 |
 | --- | --- |
 | EchoBuddy 录音反馈 | [预览](skills/onosan-mascot/assets/voice-status/preview.html) · [接入说明](skills/onosan-mascot/assets/voice-status/README.md) |
 | OnoSan Workbench Bot 工作状态 | [预览](skills/onosan-mascot/assets/bot-activity/preview.html) · [接入说明](skills/onosan-mascot/assets/bot-activity/README.md) |
-| OnoSan Workbench 桌面圆环伙伴 | [预览](skills/onosan-mascot/assets/island-companion/preview.html) · [接入说明](skills/onosan-mascot/assets/island-companion/README.md) |
 
 案例提供给接收者用于新项目的设计、适配与实现。每个案例的说明记录原始项目和素材出处。
 
@@ -37,21 +36,20 @@ OnOSaN_Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 
 ```text
 index.html
-OnOSaN_Mascot-v0.1.0.zip
+OnOSaN_Mascot-v0.1.1.zip
 skills/onosan-mascot/
   SKILL.md
   assets/
     voice-status/
     bot-activity/
-    island-companion/
 ```
 
 更新素材后，从仓库根目录重新打包。
 
 ```powershell
-Compress-Archive -LiteralPath 'skills/onosan-mascot' -DestinationPath 'OnOSaN_Mascot-v0.1.0.zip' -Force
+Compress-Archive -LiteralPath 'skills/onosan-mascot' -DestinationPath 'OnOSaN_Mascot-v0.1.1.zip' -Force
 ```
 
 ## 验收方法
 
-从 ZIP 解压到一个新目录，打开案例页，用鼠标和键盘切换状态。减少动态效果时，检查录音计时、Bot 状态文字和未读角标仍然能看懂。接入其他产品时，用另一份 SVG 替换角色，让新项目自己的事件驱动状态，然后从实际入口试一遍。桌面贴边、置顶和展开窗口的行为在宿主产品里验证。
+从 ZIP 解压到一个新目录，打开案例页，用鼠标和键盘切换状态。减少动态效果时，检查录音计时和 Bot 状态文字、状态点是否清楚。接入其他产品时，用另一份 SVG 替换角色，让新项目自己的事件驱动状态，然后从实际入口试一遍。EchoBuddy 的贴边、置顶和展开窗口行为在宿主产品里验证。
