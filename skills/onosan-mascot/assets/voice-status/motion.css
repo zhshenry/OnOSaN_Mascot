@@ -1,0 +1,22 @@
+.voice-status[data-state="recording"] .mascot-shape {
+  animation: voice-recording 1.25s ease-in-out infinite;
+}
+
+.voice-status[data-state="transcribing"] .mascot-shape {
+  animation: voice-transcribing 1.9s ease-in-out infinite;
+}
+
+@keyframes voice-recording {
+  0%, 100% { transform: none; }
+  35% { transform: translateY(-10%) rotate(-8deg); }
+  70% { transform: scale(1.08, .92) rotate(6deg); }
+}
+
+@keyframes voice-transcribing {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: translateY(-5%) rotate(6deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voice-status[data-state] .mascot-shape { animation: none; }
+}

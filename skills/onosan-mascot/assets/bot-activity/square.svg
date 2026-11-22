@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="title">
+  <title id="title">小历 堇紫方糖</title>
+  <defs>
+    <radialGradient id="violet" gradientUnits="userSpaceOnUse" cx="40" cy="34" r="66" fx="33" fy="25">
+      <stop stop-color="#CCBEFF"/>
+      <stop offset=".48" stop-color="#8E74F1"/>
+      <stop offset="1" stop-color="#694DD6"/>
+    </radialGradient>
+  </defs>
+  <path d="M50 11C80.5 11 89 19.5 89 50C89 80.5 80.5 89 50 89C19.5 89 11 80.5 11 50C11 19.5 19.5 11 50 11Z" fill="url(#violet)"/>
+  <ellipse cx="30" cy="27" rx="12" ry="6.5" transform="rotate(-35 30 27)" fill="#fff" opacity=".42"/>
+  <g class="mascot-eyes" fill="#261A5F">
+    <rect x="33.75" y="39.5" width="10.5" height="21" rx="5.25"/>
+    <rect x="55.75" y="39.5" width="10.5" height="21" rx="5.25"/>
+    <circle cx="40.68" cy="43.7" r="1.8" fill="#fff" opacity=".85"/>
+    <circle cx="62.68" cy="43.7" r="1.8" fill="#fff" opacity=".85"/>
+  </g>
+</svg>

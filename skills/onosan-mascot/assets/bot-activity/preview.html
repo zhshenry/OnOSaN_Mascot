@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bot 工作状态 · OnOSaN_Mascot</title>
+    <link rel="stylesheet" href="../preview.css">
+    <link rel="stylesheet" href="motion.css">
+    <script src="../preview.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="page-width topbar-inner">
+        <span class="wordmark"><img src="../voice-status/mascot.svg" alt="">OnOSaN_Mascot</span>
+        <nav aria-label="案例">
+          <a href="../voice-status/preview.html">录音反馈</a>
+          <a href="preview.html" aria-current="page">Bot 工作状态</a>
+          <a href="../island-companion/preview.html">桌面圆环伙伴</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-width preview-main" data-preview>
+      <div class="preview-heading">
+        <h1>Bot 工作状态</h1>
+        <p>切换 Ono 的任务状态，对照一直排队的小历。等待协作时用空心状态点和文字提示。</p>
+      </div>
+      <div class="preview-layout">
+        <div class="specimen preview-stage" data-stage style="--mascot-size: 42px">
+          <div class="bot-rail" aria-label="Bot 侧栏示例">
+            <div class="bot-activity" data-avatar-state data-state="idle">
+              <img class="mascot-shape" src="mascot.svg" alt="">
+              <div>
+                <strong>Ono</strong>
+                <p class="state-label"><span class="state-dot" aria-hidden="true"></span><span role="status" data-status>空闲</span></p>
+              </div>
+            </div>
+            <div class="bot-activity" data-state="queued">
+              <img class="mascot-shape" src="square.svg" alt="">
+              <div>
+                <strong>小历</strong>
+                <p class="state-label"><span class="state-dot" aria-hidden="true"></span>已排队</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-options">
+          <fieldset>
+            <legend>Ono 的任务状态</legend>
+            <div class="state-buttons">
+              <button type="button" data-next-state="idle" data-status="空闲" aria-pressed="true">空闲</button>
+              <button type="button" data-next-state="queued" data-status="已排队" aria-pressed="false">排队</button>
+              <button type="button" data-next-state="working" data-status="正在执行" aria-pressed="false">执行</button>
+              <button type="button" data-next-state="waiting" data-status="等待协作结果" aria-pressed="false">协作等待</button>
+            </div>
+          </fieldset>
+          <div class="settings">
+            <label>尺寸 <select data-size><option value="24">24 px</option><option value="42" selected>42 px</option><option value="96">96 px</option></select></label>
+            <label>底色 <select data-theme-option><option value="light">浅色</option><option value="dark">深色</option></select></label>
+            <label class="motion-check"><input type="checkbox" data-reduce-motion> 减少动态效果</label>
+          </div>
+          <div class="reference-links">
+            <a href="mascot.svg" download>下载圆环</a>
+            <a href="square.svg" download>下载方糖</a>
+            <a href="reference.png">原头像参考</a>
+            <a href="README.md">接入说明</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

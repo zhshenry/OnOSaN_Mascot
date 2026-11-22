@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="title">
+  <title id="title">EchoBuddy 珊瑚水滴</title>
+  <defs>
+    <path id="drop" d="M53.8 11.2C62.5 23.5 84 39.5 84 59A34 34 0 0 1 16 59C16 39.5 37.5 23.5 46.2 11.2Q50 5.8 53.8 11.2Z"/>
+    <radialGradient id="coral" gradientUnits="userSpaceOnUse" cx="40" cy="34" r="66" fx="33" fy="25">
+      <stop stop-color="#FFBAB4"/>
+      <stop offset=".48" stop-color="#F7706B"/>
+      <stop offset="1" stop-color="#DA4946"/>
+    </radialGradient>
+    <clipPath id="bounds"><use href="#drop"/></clipPath>
+  </defs>
+  <use href="#drop" fill="url(#coral)"/>
+  <ellipse cx="32" cy="48" rx="8" ry="5" transform="rotate(-60 32 48)" fill="#fff" opacity=".42" clip-path="url(#bounds)"/>
+  <g class="mascot-eyes" fill="#5F1716">
+    <rect x="33.75" y="50.5" width="10.5" height="21" rx="5.25"/>
+    <rect x="55.75" y="50.5" width="10.5" height="21" rx="5.25"/>
+    <circle cx="40.68" cy="54.7" r="1.8" fill="#fff" opacity=".85"/>
+    <circle cx="62.68" cy="54.7" r="1.8" fill="#fff" opacity=".85"/>
+  </g>
+</svg>

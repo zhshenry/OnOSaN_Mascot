@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="title">
+  <title id="title">Ono 晴蓝圆环</title>
+  <defs>
+    <radialGradient id="blue" gradientUnits="userSpaceOnUse" cx="40" cy="34" r="66" fx="33" fy="25">
+      <stop stop-color="#B6CDFF"/>
+      <stop offset=".48" stop-color="#5C8DF6"/>
+      <stop offset="1" stop-color="#3A63D6"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="43" fill="url(#blue)"/>
+  <circle cx="50" cy="50" r="27" fill="#E9F0FE" stroke="#3A63D6" stroke-opacity=".22" stroke-width="1.5"/>
+  <ellipse cx="26" cy="28" rx="9" ry="5" transform="rotate(-42 26 28)" fill="#fff" opacity=".42"/>
+  <g class="mascot-eyes" fill="#172A63">
+    <rect x="36.5" y="41" width="9" height="18" rx="4.5"/>
+    <rect x="54.5" y="41" width="9" height="18" rx="4.5"/>
+    <circle cx="42.44" cy="45.2" r="1.8" fill="#fff" opacity=".85"/>
+    <circle cx="60.44" cy="45.2" r="1.8" fill="#fff" opacity=".85"/>
+  </g>
+</svg>

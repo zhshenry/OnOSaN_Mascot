@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>录音反馈 · OnOSaN_Mascot</title>
+    <link rel="stylesheet" href="../preview.css">
+    <link rel="stylesheet" href="motion.css">
+    <script src="../preview.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="page-width topbar-inner">
+        <span class="wordmark"><img src="mascot.svg" alt="">OnOSaN_Mascot</span>
+        <nav aria-label="案例">
+          <a href="preview.html" aria-current="page">录音反馈</a>
+          <a href="../bot-activity/preview.html">Bot 工作状态</a>
+          <a href="../island-companion/preview.html">桌面圆环伙伴</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-width preview-main" data-preview>
+      <div class="preview-heading">
+        <h1>录音反馈</h1>
+        <p>用 EchoBuddy 水滴预览待机、录音和转写。录音时同时显示状态和计时。</p>
+      </div>
+      <div class="preview-layout">
+        <div class="specimen preview-stage voice-status" data-stage data-state="idle">
+          <img class="mascot-shape" src="mascot.svg" alt="珊瑚水滴">
+          <div class="state-label">
+            <span class="state-dot" aria-hidden="true"></span>
+            <span role="status" data-status>待机</span>
+            <span class="timer" aria-label="录音计时" data-clock hidden>00:00</span>
+          </div>
+        </div>
+
+        <div class="preview-options">
+          <fieldset>
+            <legend>录音状态</legend>
+            <div class="state-buttons">
+              <button type="button" data-next-state="idle" data-status="待机" aria-pressed="true">待机</button>
+              <button type="button" data-next-state="recording" data-status="录音中" aria-pressed="false">开始录音</button>
+              <button type="button" data-next-state="transcribing" data-status="正在转写" aria-pressed="false">结束录音</button>
+            </div>
+          </fieldset>
+          <div class="settings">
+            <label>尺寸 <select data-size><option value="24">24 px</option><option value="42">42 px</option><option value="96" selected>96 px</option></select></label>
+            <label>底色 <select data-theme-option><option value="light">浅色</option><option value="dark">深色</option></select></label>
+            <label class="motion-check"><input type="checkbox" data-reduce-motion> 减少动态效果</label>
+          </div>
+          <div class="reference-links">
+            <a href="mascot.svg" download>下载 SVG</a>
+            <a href="reference.png">原浮窗设计</a>
+            <a href="README.md">接入说明</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

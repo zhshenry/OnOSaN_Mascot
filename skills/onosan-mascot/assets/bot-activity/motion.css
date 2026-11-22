@@ -1,0 +1,32 @@
+.bot-activity[data-state="working"] .mascot-shape {
+  animation: bot-working 1.25s ease-in-out infinite;
+}
+
+.bot-activity[data-state="waiting"] .mascot-shape {
+  animation: bot-waiting 3.2s ease-in-out infinite;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .bot-activity:is([data-state="idle"], [data-state="queued"]):hover .mascot-shape {
+    animation: bot-greet .6s ease-in-out;
+  }
+}
+
+@keyframes bot-working {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: translateY(-6%) rotate(10deg) scale(1.04); }
+}
+
+@keyframes bot-waiting {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes bot-greet {
+  0%, 100% { transform: none; }
+  40% { transform: translateY(-2%) rotate(7deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bot-activity[data-state] .mascot-shape { animation: none; }
+}
