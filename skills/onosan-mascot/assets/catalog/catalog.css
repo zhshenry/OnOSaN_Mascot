@@ -32,6 +32,9 @@
 .section-heading { margin-bottom: 17px; }
 .section-heading h2 { font-size: clamp(24px, 3vw, 35px); line-height: 1.2; }
 .section-heading.with-control { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: 11px 20px; }
+.motion-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
+.motion-controls label { display: inline-flex; align-items: center; gap: 6px; font-size: .88rem; }
+.motion-controls select { min-height: 36px; padding: 3px 8px; border: 1px solid #a9a8d3; border-radius: 7px; color: var(--ink); background: #fff; font: inherit; }
 .motion-switch { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; color: var(--muted); cursor: pointer; }
 .motion-switch input { accent-color: var(--accent); width: 17px; height: 17px; }
 
@@ -97,7 +100,13 @@
 .sample-copy p { margin: 4px 0 8px; color: var(--muted); line-height: 1.5; font-size: .82rem; }
 .sample-copy > button { margin-top: auto; }
 .sample-control { min-height: 36px; padding: 4px 13px; border: 1px solid #a9a8d3; color: var(--accent); background: #fff; font-size: .84rem; }
-.sample-control:hover { border-color: var(--accent); background: #f0efff; }
+.sample-control:hover:not(:disabled) { border-color: var(--accent); background: #f0efff; }
+.sample-control:disabled { color: var(--muted); background: transparent; cursor: default; }
+
+/* Each catalogue card plays its own action on the selected shape. */
+[data-motion-example="hop"] .catalog-avatar[data-state="working"] .bot-avatar-body { animation-name: bot-avatar-work; transform-origin: 50px 72px; }
+[data-motion-example="wiggle"] .catalog-avatar[data-state="working"] .bot-avatar-body { animation-name: bot-avatar-wiggle; transform-origin: 50px 50px; }
+[data-motion-example="squash-and-stretch"] .catalog-avatar[data-state="working"] .bot-avatar-body { animation-name: bot-avatar-squash; transform-origin: 50px 72px; }
 
 .interactive-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .avatar-trigger { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 4px; border: 0; border-radius: 10px; background: transparent; }

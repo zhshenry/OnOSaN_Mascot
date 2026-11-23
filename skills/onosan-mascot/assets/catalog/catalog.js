@@ -10,17 +10,20 @@ const defaults = {
 let svgInstance = 0;
 
 const motionExamples = [
-  { id: "hop", label: "轻跳", state: "working", figure: "drop", color: "coral", timing: "向上跳起，落下时稍微侧转 · 1.25 秒循环" },
-  { id: "tilt-and-squint", label: "倾身眯眼", state: "thinking", figure: "ring", color: "blue", timing: "身体倾斜，双眼收窄 · 1.9 秒循环" },
-  { id: "scan", label: "摆头扫视", state: "searching", figure: "cloud", color: "cyan", timing: "身体轻摆，双眼左右扫动 · 1.3 / 1.5 秒循环" },
-  { id: "wiggle", label: "左右摇摆", state: "working", figure: "ring", color: "blue", timing: "左右交替倾斜，摆动时轻抬 · 1.25 秒循环" },
-  { id: "squash-and-stretch", label: "压缩伸展", state: "working", figure: "square", color: "violet", timing: "先压扁，后拉长上跳 · 1.25 秒循环" },
-  { id: "side-shift", label: "横移回正", state: "sending", figure: "sail", color: "orange", timing: "向一侧移出，反向轻摆后归位 · 1.1 秒循环" },
-  { id: "nod", label: "点头", state: "replying", figure: "bear", color: "cyan", timing: "轻抬后倾一下，再回正 · 1.5 秒循环" },
-  { id: "sway", label: "小幅慢摆", state: "waiting_bot", figure: "square", color: "violet", timing: "以小角度左右摇摆，双眼微移 · 3.2 秒循环" },
-  { id: "single-jump", label: "单次上跳", state: "waiting_user", figure: "flower", color: "pink", timing: "短促上跳，落下时稍微压缩 · 1.1 秒一次", once: 1100 },
-  { id: "bounce", label: "压扁回弹", state: "done", figure: "star", color: "yellow", timing: "先压扁再弹起，落下后轻弹 · 1.1 秒一次", once: 1100 },
-  { id: "blink", label: "眨眼", state: "idle", figure: "pill", color: "orange", timing: "双眼快速闭合再睁开 · 4.7 秒循环" },
+  { id: "hop", label: "轻跳", state: "working", timing: "向上跳起，落下时稍微侧转 · 1.25 秒循环" },
+  { id: "tilt-and-squint", label: "倾身眯眼", state: "thinking", timing: "身体倾斜，双眼收窄 · 1.9 秒循环",
+    bodyOnly: { label: "倾身", timing: "身体左右倾斜 · 1.9 秒循环" } },
+  { id: "scan", label: "摆头扫视", state: "searching", timing: "身体轻摆，双眼左右扫动 · 1.3 / 1.5 秒循环",
+    bodyOnly: { label: "轻摆", timing: "身体左右轻摆 · 1.3 秒循环" } },
+  { id: "wiggle", label: "左右摇摆", state: "working", timing: "左右交替倾斜，摆动时轻抬 · 1.25 秒循环" },
+  { id: "squash-and-stretch", label: "压缩伸展", state: "working", timing: "先压扁，后拉长上跳 · 1.25 秒循环" },
+  { id: "side-shift", label: "横移回正", state: "sending", timing: "向一侧移出，反向轻摆后归位 · 1.1 秒循环" },
+  { id: "nod", label: "点头", state: "replying", timing: "轻抬后倾一下，再回正 · 1.5 秒循环" },
+  { id: "sway", label: "小幅慢摆", state: "waiting_bot", timing: "以小角度左右摇摆，双眼微移 · 3.2 秒循环",
+    bodyOnly: { label: "小幅慢摆", timing: "以小角度左右摇摆 · 3.2 秒循环" } },
+  { id: "single-jump", label: "单次上跳", state: "waiting_user", timing: "短促上跳，落下时稍微压缩 · 1.1 秒一次", once: 1100 },
+  { id: "bounce", label: "压扁回弹", state: "done", timing: "先压扁再弹起，落下后轻弹 · 1.1 秒一次", once: 1100 },
+  { id: "blink", label: "眨眼", state: "idle", timing: "双眼快速闭合再睁开 · 4.7 秒循环" },
 ];
 
 function svgUrl(figure, hue) {
@@ -30,6 +33,11 @@ function svgUrl(figure, hue) {
 function avatar(figure, hue) {
   const art = renderMascot(figure, hue, "preview-" + ++svgInstance);
   return `<span class="catalog-avatar" data-figure="${figure}" data-state="idle" aria-hidden="true">${art}</span>`;
+}
+
+function selectOptions(items, selectedId) {
+  return items.map(item =>
+    `<option value="${item.id}"${item.id === selectedId ? " selected" : ""}>${item.name}</option>`).join("");
 }
 
 function shapeCard(figure, index) {
@@ -62,13 +70,15 @@ function shapeGroup(label, figures) {
   </section>`;
 }
 
-function motionCard(example) {
+function motionCard(example, figure, hue) {
+  const { label, timing } = !figure.eye && example.bodyOnly ? example.bodyOnly : example;
+  const disabled = !figure.eye && example.id === "blink";
   return `<article class="sample-card" data-motion-example="${example.id}">
-    <div class="sample-stage">${avatar(example.figure, example.color)}</div>
+    <div class="sample-stage">${avatar(figure.id, hue)}</div>
     <div class="sample-copy">
-      <h3>${example.label}</h3>
-      <p>${example.timing}</p>
-      <button type="button" class="sample-control" data-play-motion="${example.id}" aria-label="播放 ${example.label}">播放</button>
+      <h3>${label}</h3>
+      <p>${disabled ? "眨眼适用于有眼睛的角色。" : timing}</p>
+      <button type="button" class="sample-control" data-play-motion="${example.id}" aria-label="播放 ${label}"${disabled ? " disabled" : ""}>播放</button>
     </div>
   </article>`;
 }
@@ -110,10 +120,17 @@ function catalogMarkup() {
       </section>
       <section class="catalog-section" id="motions" aria-labelledby="motions-title">
         <div class="section-heading with-control">
-          <div><h2 id="motions-title">动效</h2><p>${motionExamples.length} 种动作可单独播放。</p></div>
-          <label class="motion-switch"><input type="checkbox" data-motion-toggle> 减少动态效果</label>
+          <div><h2 id="motions-title">动效</h2><p>选择形状和配色，用同一个形象预览所有动作。</p></div>
+          <div class="motion-controls">
+            <label>形状<select data-motion-figure>
+              <optgroup label="角色">${selectOptions(mascotCatalog.characters, "drop")}</optgroup>
+              <optgroup label="图形">${selectOptions(mascotCatalog.graphics)}</optgroup>
+            </select></label>
+            <label>配色<select data-motion-color>${selectOptions(namedColors, "coral")}</select></label>
+            <label class="motion-switch"><input type="checkbox" data-motion-toggle> 减少动态效果</label>
+          </div>
         </div>
-        <div class="sample-grid">${motionExamples.map(motionCard).join("")}</div>
+        <div class="sample-grid" data-motion-grid></div>
       </section>
       <section class="catalog-section" id="interactions" aria-labelledby="interaction-title">
         <div class="section-heading"><h2 id="interaction-title">可交互</h2><p>在样例上直接试触发动作。</p></div>
@@ -133,10 +150,8 @@ function catalogMarkup() {
             `<div class="picker-demo" data-picker-demo>
               <div class="picker-image">${avatar("drop", "coral")}</div>
               <div class="picker-controls">
-                <label>形状<select data-picker-figure>${mascotFigures.map(figure =>
-                  `<option value="${figure.id}"${figure.id === "drop" ? " selected" : ""}>${figure.name}</option>`).join("")}</select></label>
-                <label>配色<select data-picker-color>${namedColors.map(color =>
-                  `<option value="${color.id}"${color.id === "coral" ? " selected" : ""}>${color.name}</option>`).join("")}</select></label>
+                <label>形状<select data-picker-figure>${selectOptions(mascotFigures, "drop")}</select></label>
+                <label>配色<select data-picker-color>${selectOptions(namedColors, "coral")}</select></label>
               </div>
             </div>`)}
         </div>
@@ -166,38 +181,54 @@ gallery.querySelector("#cases").addEventListener("click", event => {
   download.setAttribute("aria-label", `下载 ${title} · ${choice.dataset.label} SVG`);
 });
 
+const motionSection = gallery.querySelector("#motions");
+const motionGrid = motionSection.querySelector("[data-motion-grid]");
+const motionFigure = motionSection.querySelector("[data-motion-figure]");
+const motionColor = motionSection.querySelector("[data-motion-color]");
 let playing;
 let endTime;
 
 function stopPlayback() {
   clearTimeout(endTime);
   if (!playing) return;
-  const { button, model, example } = playing;
+  const { button, model, label } = playing;
   model.dataset.state = "idle";
   delete model.dataset.loop;
   button.textContent = "播放";
-  button.setAttribute("aria-label", "播放 " + example.label);
+  button.setAttribute("aria-label", "播放 " + label);
   playing = undefined;
 }
 
-gallery.querySelector("#motions").addEventListener("click", event => {
+function renderMotionCards() {
+  stopPlayback();
+  const figure = mascotFigures.find(item => item.id === motionFigure.value);
+  motionGrid.innerHTML = motionExamples.map(example => motionCard(example, figure, motionColor.value)).join("");
+}
+
+renderMotionCards();
+motionFigure.addEventListener("change", renderMotionCards);
+motionColor.addEventListener("change", renderMotionCards);
+
+motionGrid.addEventListener("click", event => {
   const button = event.target.closest("[data-play-motion]");
   if (!button) return;
   const current = playing?.button === button;
   const example = motionExamples.find(item => item.id === button.dataset.playMotion);
   stopPlayback();
   if (current && !example.once) return;
-  const model = button.closest(".sample-card").querySelector(".catalog-avatar");
+  const card = button.closest(".sample-card");
+  const model = card.querySelector(".catalog-avatar");
+  const label = card.querySelector("h3").textContent;
   void model.offsetWidth;
   model.dataset.state = example.state;
   if (example.id === "blink") model.dataset.loop = "true";
   button.textContent = example.once ? "重播" : "停止";
-  button.setAttribute("aria-label", button.textContent + " " + example.label);
-  playing = { button, model, example };
+  button.setAttribute("aria-label", button.textContent + " " + label);
+  playing = { button, model, label };
   if (example.once) endTime = setTimeout(stopPlayback, example.once);
 });
 
-gallery.querySelector("[data-motion-toggle]").addEventListener("change", event => {
+motionSection.querySelector("[data-motion-toggle]").addEventListener("change", event => {
   gallery.dataset.reducedMotion = String(event.target.checked);
 });
 

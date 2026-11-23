@@ -2,7 +2,7 @@
 
 OnOSaN Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill。使用者描述新项目里的场景，AI 按案例选择或调整形象，把动效接到已有的业务状态，再验证实际入口。
 
-[下载 v0.2.1 Skill 包](OnOSaN-Mascot-v0.2.1.zip) · [阅读 SKILL.md](skills/onosan-mascot/SKILL.md) · [查看吉祥物图鉴](index.html)
+[下载 v0.2.2 Skill 包](OnOSaN-Mascot-v0.2.2.zip) · [阅读 SKILL.md](skills/onosan-mascot/SKILL.md) · [查看吉祥物图鉴](index.html)
 
 ## 别人怎么用
 
@@ -12,7 +12,7 @@ OnOSaN Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 
 > 用 OnOSaN Mascot 给我的听写浮窗加一个角色。参考 `voice-status`，使用我提供的角色图，把动效接到现有的待机、录音和转写状态。
 
-本地打开仓库根目录的 `index.html`，或解压后打开 `assets/catalog/preview.html`。图鉴里能查看 240 个形状与配色组合、单独播放 11 种动作，也能试悬停、点按、视线跟随、贴边收展和换形换色。
+本地打开仓库根目录的 `index.html`，或解压后打开 `assets/catalog/preview.html`。图鉴里能查看 240 个形状与配色组合。动效区统一选择形状和配色，逐项预览 11 种动作。还可以试悬停、点按、视线跟随、贴边收展和换形换色。
 
 ## 我们这里存了什么
 
@@ -36,7 +36,7 @@ OnOSaN Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 
 ```text
 index.html
-OnOSaN-Mascot-v0.2.1.zip
+OnOSaN-Mascot-v0.2.2.zip
 skills/onosan-mascot/
   SKILL.md
   assets/
@@ -48,7 +48,7 @@ skills/onosan-mascot/
 更新素材后，从仓库根目录重新打包。
 
 ```powershell
-Compress-Archive -LiteralPath 'skills/onosan-mascot' -DestinationPath 'OnOSaN-Mascot-v0.2.1.zip' -Force
+Compress-Archive -LiteralPath 'skills/onosan-mascot' -DestinationPath 'OnOSaN-Mascot-v0.2.2.zip' -Force
 ```
 
 ## 验收方法

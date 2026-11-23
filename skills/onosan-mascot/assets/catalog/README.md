@@ -8,6 +8,8 @@
 
 ## 取用动作
 
+在动效区选择一次形状和配色，所有动作卡片会一起切换。切换形象后可以逐个播放动作。无眼图形可以预览 10 种动作的身体部分，眨眼适用于有眼睛的角色。
+
 [avatar-motion.css](avatar-motion.css)保留 OnoSan Bot 侧栏的身体和眼睛关键帧。用 `catalog-avatar` 包住 SVG，设置 `data-figure` 为形状 ID，并由业务事件设置 `data-state`。活动或协作等待时可设置 `data-loop="true"` 启用周期眨眼。静态图形没有眼睛图层，身体动画沿用同一套关键帧。
 
 ## 实际应用中的状态映射
