@@ -2,7 +2,7 @@
 
 OnOSaN Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill。使用者描述新项目里的场景，AI 按案例选择或调整形象，把动效接到已有的业务状态，再验证实际入口。
 
-[下载 v0.1.2 Skill 包](OnOSaN-Mascot-v0.1.2.zip) · [阅读 SKILL.md](skills/onosan-mascot/SKILL.md) · [查看案例索引](index.html)
+[下载 v0.2.0 Skill 包](OnOSaN-Mascot-v0.2.0.zip) · [阅读 SKILL.md](skills/onosan-mascot/SKILL.md) · [查看吉祥物图鉴](index.html)
 
 ## 别人怎么用
 
@@ -12,18 +12,18 @@ OnOSaN Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 
 > 用 OnOSaN Mascot 给我的听写浮窗加一个角色。参考 `voice-status`，使用我提供的角色图，把动效接到现有的待机、录音和转写状态。
 
-本地打开仓库根目录的 `index.html` 可以浏览两个案例。也可以直接双击解压目录内每个案例的 `preview.html`，切换状态、底色、尺寸和减少动态效果。
+本地打开仓库根目录的 `index.html`，或解压后打开 `assets/catalog/preview.html`。图鉴里能查看 240 个形状与配色组合、逐项播放 15 种状态动效，也能试悬停、点按、视线跟随、贴边收展和换形换色。
 
 ## 我们这里存了什么
 
 | 内容 | 保存的东西 |
 | --- | --- |
 | AI 指引 | `SKILL.md` 说明适用场景、案例入口、接入和验收方法。 |
-| 形象 | 可编辑的 SVG、透明 PNG、配色、实际尺寸和原产品设计参考。 |
+| 形象 | 共用形状与色板、按选择生成的 SVG、原产品 SVG 和 PNG 参考。 |
 | 动效 | 可复用的 CSS、对应状态、节奏、循环和结束条件。 |
 | 交互 | 可运行的预览，来源与使用说明，以及录音和 Bot 任务的状态怎样触发界面反馈。 |
 
-| 案例 | 预览和接入 |
+| 使用场景 | 预览和接入 |
 | --- | --- |
 | EchoBuddy 录音反馈 | [预览](skills/onosan-mascot/assets/voice-status/preview.html) · [接入说明](skills/onosan-mascot/assets/voice-status/README.md) |
 | OnoSan Workbench Bot 工作状态 | [预览](skills/onosan-mascot/assets/bot-activity/preview.html) · [接入说明](skills/onosan-mascot/assets/bot-activity/README.md) |
@@ -36,10 +36,11 @@ OnOSaN Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 
 ```text
 index.html
-OnOSaN-Mascot-v0.1.2.zip
+OnOSaN-Mascot-v0.2.0.zip
 skills/onosan-mascot/
   SKILL.md
   assets/
+    catalog/
     voice-status/
     bot-activity/
 ```
@@ -47,9 +48,9 @@ skills/onosan-mascot/
 更新素材后，从仓库根目录重新打包。
 
 ```powershell
-Compress-Archive -LiteralPath 'skills/onosan-mascot' -DestinationPath 'OnOSaN-Mascot-v0.1.2.zip' -Force
+Compress-Archive -LiteralPath 'skills/onosan-mascot' -DestinationPath 'OnOSaN-Mascot-v0.2.0.zip' -Force
 ```
 
 ## 验收方法
 
-从 ZIP 解压到一个新目录，打开案例页，用鼠标和键盘切换状态。减少动态效果时，检查录音计时和 Bot 状态文字、状态点是否清楚。接入其他产品时，用另一份 SVG 替换角色，让新项目自己的事件驱动状态，然后从实际入口试一遍。EchoBuddy 的贴边、置顶和展开窗口行为在宿主产品里验证。
+从 ZIP 解压到一个新目录，打开图鉴，选择任意组合下载 SVG，再播放动效并用鼠标和键盘试交互。减少动态效果时，检查状态文字和状态点是否清楚。案例接入在宿主产品里验证，尤其是 EchoBuddy 的贴边、置顶和展开窗口。

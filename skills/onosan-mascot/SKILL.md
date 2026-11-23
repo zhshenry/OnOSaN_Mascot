@@ -5,7 +5,7 @@ description: Design, adapt, or integrate product mascots and their state-driven 
 
 # OnOSaN Mascot
 
-Use the relevant case to design or integrate a mascot into the user's product.
+Use the [mascot catalogue](assets/catalog/README.md) to choose static artwork, state motion, or interactive feedback. Use the relevant integration example when connecting the result to a product.
 
 | What the mascot does | Case |
 | --- | --- |

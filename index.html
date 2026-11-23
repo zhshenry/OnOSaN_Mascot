@@ -3,69 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OnOSaN Mascot · 吉祥物交互素材</title>
+    <title>OnOSaN Mascot · 吉祥物图鉴</title>
     <link rel="icon" href="skills/onosan-mascot/assets/voice-status/mascot.svg" type="image/svg+xml">
     <link rel="stylesheet" href="skills/onosan-mascot/assets/preview.css">
-    <link rel="stylesheet" href="skills/onosan-mascot/assets/voice-status/motion.css">
-    <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="skills/onosan-mascot/assets/catalog/avatar-motion.css">
+    <link rel="stylesheet" href="skills/onosan-mascot/assets/catalog/catalog.css">
+    <script src="skills/onosan-mascot/assets/catalog/avatar-data.js" defer></script>
+    <script src="skills/onosan-mascot/assets/catalog/avatar.js" defer></script>
+    <script src="skills/onosan-mascot/assets/catalog/catalog.js" defer></script>
   </head>
-  <body>
-    <header class="topbar">
-      <div class="page-width topbar-inner">
-        <span class="wordmark"><img src="skills/onosan-mascot/assets/voice-status/mascot.svg" alt="">OnOSaN Mascot</span>
-        <nav aria-label="主导航">
-          <a href="#cases">案例</a>
-          <a href="#use">接入方式</a>
-        </nav>
-      </div>
-    </header>
-
-    <main class="page-width">
-      <section class="intro" aria-labelledby="intro-title">
-        <div>
-          <h1 id="intro-title">吉祥物交互素材</h1>
-          <p>把形象、动效和业务状态一起交给 AI。<br>直接拿到可编辑素材和可运行的接入示例。</p>
-          <div class="intro-actions">
-            <a class="download" href="OnOSaN-Mascot-v0.1.2.zip" download>下载 Skill 包</a>
-            <a href="#cases">浏览案例</a>
-          </div>
-        </div>
-        <div class="specimen hero-sample voice-status" data-state="recording">
-          <img class="mascot-shape" src="skills/onosan-mascot/assets/voice-status/mascot.svg" alt="EchoBuddy 珊瑚水滴">
-          <p class="state-label"><span class="state-dot" aria-hidden="true"></span>录音中</p>
-        </div>
-      </section>
-
-      <section class="cases" id="cases" aria-labelledby="cases-title">
-        <h2 id="cases-title">案例</h2>
-        <div class="case-grid">
-          <a class="case" href="skills/onosan-mascot/assets/voice-status/preview.html">
-            <div class="case-art coral"><img src="skills/onosan-mascot/assets/voice-status/mascot.svg" alt=""></div>
-            <div class="case-caption">
-              <div><h3>录音反馈</h3><p>EchoBuddy</p></div>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17m-7-7 7 7-7 7"/></svg>
-            </div>
-          </a>
-          <a class="case" href="skills/onosan-mascot/assets/bot-activity/preview.html">
-            <div class="case-art violet">
-              <img src="skills/onosan-mascot/assets/bot-activity/mascot.svg" alt="">
-              <img src="skills/onosan-mascot/assets/bot-activity/square.svg" alt="">
-            </div>
-            <div class="case-caption">
-              <div><h3>Bot 工作状态</h3><p>OnoSan Workbench</p></div>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17m-7-7 7 7-7 7"/></svg>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <section class="use" id="use" aria-labelledby="use-title">
-        <div>
-          <h2 id="use-title">接入方式</h2>
-          <p>把完整目录交给 AI，从 <a href="skills/onosan-mascot/SKILL.md">SKILL.md</a> 开始。</p>
-        </div>
-        <p class="prompt-sample">用 <code>OnOSaN Mascot</code> 给我的听写浮窗加一个角色。</p>
-      </section>
-    </main>
+  <body data-catalog data-assets="skills/onosan-mascot/assets" data-skill="skills/onosan-mascot/SKILL.md" data-download="OnOSaN-Mascot-v0.2.0.zip">
+    <noscript>请启用 JavaScript 以浏览吉祥物图鉴。</noscript>
   </body>
 </html>

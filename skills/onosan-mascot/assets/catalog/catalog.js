@@ -1,0 +1,271 @@
+const gallery = document.querySelector("[data-catalog]");
+const assets = gallery.dataset.assets;
+const skillLink = gallery.dataset.skill;
+const archive = gallery.dataset.download;
+const namedColors = mascotCatalog.colors;
+const defaults = {
+  ring: "blue", orb: "cyan", square: "violet", drop: "coral", sail: "orange", hex: "pink",
+  cloud: "cyan", flower: "mint", ghost: "green", pill: "yellow", star: "yellow", bear: "graphite",
+};
+let svgInstance = 0;
+
+const motionExamples = [
+  { id: "recording", label: "录音", state: "working", figure: "drop", color: "coral", timing: "轻跳 · 1.25 秒循环", marker: "solid" },
+  { id: "transcribing", label: "转写与准备", state: "thinking", figure: "drop", color: "coral", timing: "倾身和眯眼 · 1.9 秒循环", marker: "solid" },
+  { id: "thinking", label: "思考", state: "thinking", figure: "ring", color: "blue", timing: "侧头和眯眼 · 1.9 秒循环", marker: "solid" },
+  { id: "searching", label: "搜索与读取", state: "searching", figure: "cloud", color: "cyan", timing: "身体轻动和眼睛扫视 · 1.3 / 1.5 秒", marker: "solid" },
+  { id: "work-hop", label: "执行 · 轻跳", state: "working", figure: "orb", color: "mint", timing: "团子等角色 · 1.25 秒循环", marker: "solid" },
+  { id: "work-wiggle", label: "执行 · 摇摆", state: "working", figure: "ring", color: "blue", timing: "圆环、蜂巢、星星、花瓣 · 1.25 秒循环", marker: "solid" },
+  { id: "work-squash", label: "执行 · 压缩回弹", state: "working", figure: "square", color: "violet", timing: "方糖、幽灵、胶囊、云朵 · 1.25 秒循环", marker: "solid" },
+  { id: "sending", label: "交接", state: "sending", figure: "sail", color: "orange", timing: "向一侧送出 · 1.1 秒循环", marker: "solid" },
+  { id: "replying", label: "回复", state: "replying", figure: "bear", color: "cyan", timing: "点头 · 1.5 秒循环", marker: "solid" },
+  { id: "waiting-bot", label: "等待协作", state: "waiting_bot", figure: "square", color: "violet", timing: "小幅慢摆 · 3.2 秒循环", marker: "hollow" },
+  { id: "waiting-user", label: "等待用户确认", state: "waiting_user", figure: "flower", color: "pink", timing: "提醒 · 1.1 秒一次", marker: "attention", once: 1100 },
+  { id: "waiting-resource", label: "等待资源", state: "waiting_resource", figure: "hex", color: "mint", timing: "提醒 · 1.1 秒一次", marker: "attention", once: 1100 },
+  { id: "interrupted", label: "执行中断", state: "interrupted", figure: "ghost", color: "violet", timing: "提醒 · 1.1 秒一次", marker: "attention", once: 1100 },
+  { id: "done", label: "任务成功", state: "done", figure: "star", color: "yellow", timing: "回弹 · 1.1 秒一次", once: 1100 },
+  { id: "blink", label: "工作中眨眼", state: "idle", figure: "pill", color: "orange", timing: "工作或协作等待时启用 · 4.7 秒循环", marker: "solid" },
+];
+
+function svgUrl(figure, hue) {
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(renderMascot(figure, hue));
+}
+
+function avatar(figure, hue, content = "") {
+  const art = renderMascot(figure, hue, "preview-" + ++svgInstance);
+  return `<span class="catalog-avatar" data-figure="${figure}" data-state="idle" aria-hidden="true">${art}${content}</span>`;
+}
+
+function shapeCard(figure, index) {
+  const base = namedColors.find(color => color.id === defaults[figure.id]) ?? namedColors[index % namedColors.length];
+  const title = figure.name;
+  const swatches = namedColors.map(color => `
+    <button class="color-choice" type="button" data-color="${color.id}" data-label="${color.name}"
+      aria-label="${title} · ${color.name}" title="${color.name}" aria-pressed="${color.id === base.id}">
+      <img src="${svgUrl(figure.id, color.id)}" alt="" width="28" height="28" loading="lazy">
+      <span>${color.name}</span>
+    </button>`).join("");
+  return `<article class="shape-card" data-shape="${figure.id}">
+    <div class="shape-top">
+      <div class="shape-art"><img src="${svgUrl(figure.id, base.id)}" alt="" width="75" height="75" loading="lazy"></div>
+      <div class="shape-info">
+        <h4>${title}</h4>
+        <p class="color-label">${base.name}</p>
+        <a class="svg-download" href="${svgUrl(figure.id, base.id)}" download="${figure.id}-${base.id}.svg"
+           aria-label="下载 ${title} · ${base.name} SVG">下载 SVG</a>
+      </div>
+    </div>
+    <div class="palette" role="group" aria-label="${title}的 ${namedColors.length} 种配色">${swatches}</div>
+  </article>`;
+}
+
+function shapeGroup(label, figures) {
+  return `<section class="shape-group" aria-label="${label}">
+    <h3>${label}<span class="group-count">${figures.length} 种</span></h3>
+    <div class="shape-grid">${figures.map(shapeCard).join("")}</div>
+  </section>`;
+}
+
+function motionCard(example) {
+  const marker = example.marker ? `<span class="motion-marker ${example.marker}">${example.marker === "attention" ? "?" : ""}</span>` : "";
+  return `<article class="sample-card" data-motion-example="${example.id}">
+    <div class="sample-stage">${avatar(example.figure, example.color, marker)}</div>
+    <div class="sample-copy">
+      <h3>${example.label}</h3>
+      <p>${example.timing}</p>
+      <button type="button" class="sample-control" data-play-motion="${example.id}" aria-label="播放 ${example.label}">播放</button>
+    </div>
+  </article>`;
+}
+
+function interactiveCard(heading, description, stage) {
+  return `<article class="sample-card interactive-card">
+    <div class="sample-stage">${stage}</div>
+    <div class="sample-copy"><h3>${heading}</h3><p>${description}</p></div>
+  </article>`;
+}
+
+function catalogMarkup() {
+  const primary = archive
+    ? `<a class="download" href="${archive}" download>下载 Skill 包</a>`
+    : `<a class="download" href="${skillLink}">阅读 Skill 指引</a>`;
+  return `
+    <header class="topbar catalog-topbar">
+      <div class="page-width topbar-inner">
+        <span class="wordmark"><img src="${assets}/voice-status/mascot.svg" alt="">OnOSaN Mascot</span>
+        <nav aria-label="图鉴分类">
+          <a href="#cases">静态形象</a>
+          <a href="#motions">状态动效</a>
+          <a href="#interactions">可交互</a>
+        </nav>
+      </div>
+    </header>
+    <main class="page-width catalog-main">
+      <div class="catalog-intro">
+        <div><h1>吉祥物图鉴</h1><p>挑选形象和配色，逐项试动效与交互。</p></div>
+        ${primary}
+      </div>
+      <section class="catalog-section" id="cases" aria-labelledby="shapes-title">
+        <div class="section-heading">
+          <h2 id="shapes-title">静态形象</h2>
+          <p>${mascotFigures.length} 种形状 × ${namedColors.length} 种配色。点击任一配色可放大并下载 SVG。</p>
+        </div>
+        ${shapeGroup("角色", mascotCatalog.characters)}
+        ${shapeGroup("图形", mascotCatalog.graphics)}
+      </section>
+      <section class="catalog-section" id="motions" aria-labelledby="motions-title">
+        <div class="section-heading with-control">
+          <div><h2 id="motions-title">状态动效</h2><p>${motionExamples.length} 种动效可以单独播放。空闲和排队默认静止。</p></div>
+          <label class="motion-switch"><input type="checkbox" data-motion-toggle> 减少动态效果</label>
+        </div>
+        <div class="sample-grid">${motionExamples.map(motionCard).join("")}</div>
+      </section>
+      <section class="catalog-section" id="interactions" aria-labelledby="interaction-title">
+        <div class="section-heading"><h2 id="interaction-title">可交互</h2><p>在样例上直接试触发动作。</p></div>
+        <div class="sample-grid interactive-grid">
+          ${interactiveCard("悬停反馈", "把鼠标移到角色上，会播放一次 600 毫秒的表情反馈。",
+            `<button type="button" class="avatar-trigger" data-hover-demo aria-label="试悬停反馈">${avatar("ring", "blue")}</button>`)}
+          ${interactiveCard("点按反馈", "点击角色，或用键盘激活，会播放一次 480 毫秒的回应。",
+            `<button type="button" class="avatar-trigger" data-press-demo aria-label="试点按反馈">${avatar("square", "violet")}</button>`)}
+          ${interactiveCard("视线跟随", "在方格内移动鼠标。移开后，视线归中。",
+            `<div class="gaze-surface" data-gaze-demo>${avatar("drop", "coral")}</div>`)}
+          ${interactiveCard("贴边收展", "点水滴展开示意浮窗。移出后再次移入，再移出会延迟收起。",
+            `<div class="dock-surface"><div class="dock-demo" data-dock-demo data-expanded="false">
+              <button type="button" class="avatar-trigger dock-trigger" aria-label="展开浮窗" aria-controls="dock-caption" aria-expanded="false">${avatar("drop", "coral")}</button>
+              <span class="dock-caption" id="dock-caption" aria-hidden="true">完整浮窗</span>
+            </div></div>`)}
+          ${interactiveCard("换形状与颜色", "选一个角色或图形，再试同一份配色。",
+            `<div class="picker-demo" data-picker-demo>
+              <div class="picker-image">${avatar("drop", "coral")}</div>
+              <div class="picker-controls">
+                <label>形状<select data-picker-figure>${mascotFigures.map(figure =>
+                  `<option value="${figure.id}"${figure.id === "drop" ? " selected" : ""}>${figure.name}</option>`).join("")}</select></label>
+                <label>配色<select data-picker-color>${namedColors.map(color =>
+                  `<option value="${color.id}"${color.id === "coral" ? " selected" : ""}>${color.name}</option>`).join("")}</select></label>
+              </div>
+            </div>`)}
+        </div>
+      </section>
+      <footer class="catalog-footer">
+        <p>将完整目录交给 AI，从 <a href="${skillLink}">SKILL.md</a> 开始。</p>
+        <p><a href="${assets}/voice-status/preview.html">录音接入示例</a> <a href="${assets}/bot-activity/preview.html">Bot 接入示例</a></p>
+      </footer>
+    </main>`;
+}
+
+gallery.innerHTML = catalogMarkup();
+
+gallery.querySelector("#cases").addEventListener("click", event => {
+  const choice = event.target.closest(".color-choice");
+  if (!choice) return;
+  const card = choice.closest(".shape-card");
+  const source = choice.querySelector("img").src;
+  const preview = card.querySelector(".shape-art img");
+  const download = card.querySelector(".svg-download");
+  const title = card.querySelector("h4").textContent;
+  for (const color of card.querySelectorAll(".color-choice")) color.setAttribute("aria-pressed", String(color === choice));
+  preview.src = source;
+  card.querySelector(".color-label").textContent = choice.dataset.label;
+  download.href = source;
+  download.download = `${card.dataset.shape}-${choice.dataset.color}.svg`;
+  download.setAttribute("aria-label", `下载 ${title} · ${choice.dataset.label} SVG`);
+});
+
+let playing;
+let endTime;
+
+function stopPlayback() {
+  clearTimeout(endTime);
+  if (!playing) return;
+  const { button, model, example } = playing;
+  model.dataset.state = "idle";
+  delete model.dataset.loop;
+  button.textContent = "播放";
+  button.setAttribute("aria-label", "播放 " + example.label);
+  playing = undefined;
+}
+
+gallery.querySelector("#motions").addEventListener("click", event => {
+  const button = event.target.closest("[data-play-motion]");
+  if (!button) return;
+  const current = playing?.button === button;
+  const example = motionExamples.find(item => item.id === button.dataset.playMotion);
+  stopPlayback();
+  if (current && !example.once) return;
+  const model = button.closest(".sample-card").querySelector(".catalog-avatar");
+  void model.offsetWidth;
+  model.dataset.state = example.state;
+  model.dataset.loop = String(!example.once);
+  button.textContent = example.once ? "重播" : "停止";
+  button.setAttribute("aria-label", button.textContent + " " + example.label);
+  playing = { button, model, example };
+  if (example.once) endTime = setTimeout(stopPlayback, example.once);
+});
+
+gallery.querySelector("[data-motion-toggle]").addEventListener("change", event => {
+  gallery.dataset.reducedMotion = String(event.target.checked);
+});
+
+function gestureFeedback(button, flag, milliseconds) {
+  const model = button.querySelector(".catalog-avatar");
+  let timer;
+  const play = () => {
+    clearTimeout(timer);
+    delete model.dataset[flag];
+    void model.offsetWidth;
+    model.dataset[flag] = "true";
+    timer = setTimeout(() => delete model.dataset[flag], milliseconds);
+  };
+  button.addEventListener("click", play);
+  return play;
+}
+
+const hoverButton = gallery.querySelector("[data-hover-demo]");
+const greet = gestureFeedback(hoverButton, "hover", 600);
+hoverButton.addEventListener("pointerenter", event => {
+  if (event.pointerType !== "touch") greet();
+});
+gestureFeedback(gallery.querySelector("[data-press-demo]"), "poked", 480);
+
+const gaze = gallery.querySelector("[data-gaze-demo]");
+gaze.addEventListener("pointermove", event => {
+  const bounds = gaze.getBoundingClientRect();
+  const x = (event.clientX - bounds.left) / bounds.width * 2 - 1;
+  const y = (event.clientY - bounds.top) / bounds.height * 2 - 1;
+  gaze.style.setProperty("--gaze-x", x.toFixed(3));
+  gaze.style.setProperty("--gaze-y", y.toFixed(3));
+});
+gaze.addEventListener("pointerleave", () => {
+  gaze.style.removeProperty("--gaze-x");
+  gaze.style.removeProperty("--gaze-y");
+});
+
+const dock = gallery.querySelector("[data-dock-demo]");
+const dockTrigger = dock.querySelector("button");
+const dockCaption = dock.querySelector(".dock-caption");
+let collapseTimer;
+let reentered = false;
+
+function setDock(expanded) {
+  clearTimeout(collapseTimer);
+  reentered = false;
+  dock.dataset.expanded = String(expanded);
+  dockTrigger.setAttribute("aria-expanded", String(expanded));
+  dockTrigger.setAttribute("aria-label", expanded ? "收起浮窗" : "展开浮窗");
+  dockCaption.setAttribute("aria-hidden", String(!expanded));
+}
+dockTrigger.addEventListener("click", () => setDock(dock.dataset.expanded !== "true"));
+dock.addEventListener("pointerenter", () => {
+  clearTimeout(collapseTimer);
+  reentered = dock.dataset.expanded === "true";
+});
+dock.addEventListener("pointerleave", () => {
+  if (reentered) collapseTimer = setTimeout(() => setDock(false), 300);
+});
+
+const picker = gallery.querySelector("[data-picker-demo]");
+const selectedFigure = picker.querySelector("[data-picker-figure]");
+const selectedColor = picker.querySelector("[data-picker-color]");
+picker.addEventListener("change", () => {
+  picker.querySelector(".picker-image").innerHTML = avatar(selectedFigure.value, selectedColor.value);
+});
