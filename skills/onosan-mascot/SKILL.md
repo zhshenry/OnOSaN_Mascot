@@ -3,7 +3,7 @@ name: onosan-mascot
 description: Design, adapt, or integrate product mascots and their state-driven UI interactions. Use for mascot artwork, voice recording and transcription feedback, or Bot activity indicators.
 ---
 
-# OnOSaN_Mascot
+# OnOSaN Mascot
 
 Use the relevant case to design or integrate a mascot into the user's product.
 

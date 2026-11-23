@@ -1,8 +1,8 @@
-# OnOSaN_Mascot
+# OnOSaN Mascot
 
-OnOSaN_Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill。使用者描述新项目里的场景，AI 按案例选择或调整形象，把动效接到已有的业务状态，再验证实际入口。
+OnOSaN Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill。使用者描述新项目里的场景，AI 按案例选择或调整形象，把动效接到已有的业务状态，再验证实际入口。
 
-[下载 v0.1.1 Skill 包](OnOSaN_Mascot-v0.1.1.zip) · [阅读 SKILL.md](skills/onosan-mascot/SKILL.md) · [查看案例索引](index.html)
+[下载 v0.1.2 Skill 包](OnOSaN-Mascot-v0.1.2.zip) · [阅读 SKILL.md](skills/onosan-mascot/SKILL.md) · [查看案例索引](index.html)
 
 ## 别人怎么用
 
@@ -10,7 +10,7 @@ OnOSaN_Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 2. 用 Codex 时，将该目录放入个人 Skill 目录 `~/.agents/skills/`，然后在新项目里调用 `$onosan-mascot`。用其他可以读取文件的 AI 工具时，把整个目录放到它能访问的工作区，请它先读取包里的 `SKILL.md`。
 3. 告诉 AI 吉祥物放在哪、使用哪份形象，以及要表达哪些状态。AI 读取对应案例并接入项目。接收者可以打开包内的 `preview.html` 对照原始效果，再到新项目检查接入结果。
 
-> 用 OnOSaN_Mascot 给我的听写浮窗加一个角色。参考 `voice-status`，使用我提供的角色图，把动效接到现有的待机、录音和转写状态。
+> 用 OnOSaN Mascot 给我的听写浮窗加一个角色。参考 `voice-status`，使用我提供的角色图，把动效接到现有的待机、录音和转写状态。
 
 本地打开仓库根目录的 `index.html` 可以浏览两个案例。也可以直接双击解压目录内每个案例的 `preview.html`，切换状态、底色、尺寸和减少动态效果。
 
@@ -32,11 +32,11 @@ OnOSaN_Mascot 是一套可以直接交给 AI 的吉祥物素材与交互 Skill�
 
 ## 产品名称和交付
 
-产品名为 **OnOSaN_Mascot**，Skill 名为 `onosan-mascot`。仓库的 `skills/onosan-mascot/` 是打包来源，索引页使用同一份素材。每个案例把源码、图稿和预览放在一起，Skill 使用相对路径查找。
+产品名为 **OnOSaN Mascot**，Skill 名为 `onosan-mascot`。仓库的 `skills/onosan-mascot/` 是打包来源，索引页使用同一份素材。每个案例把源码、图稿和预览放在一起，Skill 使用相对路径查找。
 
 ```text
 index.html
-OnOSaN_Mascot-v0.1.1.zip
+OnOSaN-Mascot-v0.1.2.zip
 skills/onosan-mascot/
   SKILL.md
   assets/
@@ -47,7 +47,7 @@ skills/onosan-mascot/
 更新素材后，从仓库根目录重新打包。
 
 ```powershell
-Compress-Archive -LiteralPath 'skills/onosan-mascot' -DestinationPath 'OnOSaN_Mascot-v0.1.1.zip' -Force
+Compress-Archive -LiteralPath 'skills/onosan-mascot' -DestinationPath 'OnOSaN-Mascot-v0.1.2.zip' -Force
 ```
 
 ## 验收方法
