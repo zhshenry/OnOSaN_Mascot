@@ -98,10 +98,6 @@
 .sample-copy > button { margin-top: auto; }
 .sample-control { min-height: 36px; padding: 4px 13px; border: 1px solid #a9a8d3; color: var(--accent); background: #fff; font-size: .84rem; }
 .sample-control:hover { border-color: var(--accent); background: #f0efff; }
-.catalog-avatar { position: relative; }
-.motion-marker { position: absolute; right: 4px; bottom: 4px; width: 12px; height: 12px; border: 2px solid #f9faff; border-radius: 50%; background: var(--accent); }
-.motion-marker.hollow { border-color: var(--accent); background: #f9faff; }
-.motion-marker.attention { display: grid; place-items: center; width: 17px; height: 17px; color: #fff; background: var(--accent); font: 750 10px/1 system-ui, sans-serif; }
 
 .interactive-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .avatar-trigger { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 4px; border: 0; border-radius: 10px; background: transparent; }

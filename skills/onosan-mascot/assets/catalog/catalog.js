@@ -10,30 +10,26 @@ const defaults = {
 let svgInstance = 0;
 
 const motionExamples = [
-  { id: "recording", label: "录音", state: "working", figure: "drop", color: "coral", timing: "轻跳 · 1.25 秒循环", marker: "solid" },
-  { id: "transcribing", label: "转写与准备", state: "thinking", figure: "drop", color: "coral", timing: "倾身和眯眼 · 1.9 秒循环", marker: "solid" },
-  { id: "thinking", label: "思考", state: "thinking", figure: "ring", color: "blue", timing: "侧头和眯眼 · 1.9 秒循环", marker: "solid" },
-  { id: "searching", label: "搜索与读取", state: "searching", figure: "cloud", color: "cyan", timing: "身体轻动和眼睛扫视 · 1.3 / 1.5 秒", marker: "solid" },
-  { id: "work-hop", label: "执行 · 轻跳", state: "working", figure: "orb", color: "mint", timing: "团子等角色 · 1.25 秒循环", marker: "solid" },
-  { id: "work-wiggle", label: "执行 · 摇摆", state: "working", figure: "ring", color: "blue", timing: "圆环、蜂巢、星星、花瓣 · 1.25 秒循环", marker: "solid" },
-  { id: "work-squash", label: "执行 · 压缩回弹", state: "working", figure: "square", color: "violet", timing: "方糖、幽灵、胶囊、云朵 · 1.25 秒循环", marker: "solid" },
-  { id: "sending", label: "交接", state: "sending", figure: "sail", color: "orange", timing: "向一侧送出 · 1.1 秒循环", marker: "solid" },
-  { id: "replying", label: "回复", state: "replying", figure: "bear", color: "cyan", timing: "点头 · 1.5 秒循环", marker: "solid" },
-  { id: "waiting-bot", label: "等待协作", state: "waiting_bot", figure: "square", color: "violet", timing: "小幅慢摆 · 3.2 秒循环", marker: "hollow" },
-  { id: "waiting-user", label: "等待用户确认", state: "waiting_user", figure: "flower", color: "pink", timing: "提醒 · 1.1 秒一次", marker: "attention", once: 1100 },
-  { id: "waiting-resource", label: "等待资源", state: "waiting_resource", figure: "hex", color: "mint", timing: "提醒 · 1.1 秒一次", marker: "attention", once: 1100 },
-  { id: "interrupted", label: "执行中断", state: "interrupted", figure: "ghost", color: "violet", timing: "提醒 · 1.1 秒一次", marker: "attention", once: 1100 },
-  { id: "done", label: "任务成功", state: "done", figure: "star", color: "yellow", timing: "回弹 · 1.1 秒一次", once: 1100 },
-  { id: "blink", label: "工作中眨眼", state: "idle", figure: "pill", color: "orange", timing: "工作或协作等待时启用 · 4.7 秒循环", marker: "solid" },
+  { id: "hop", label: "轻跳", state: "working", figure: "drop", color: "coral", timing: "向上跳起，落下时稍微侧转 · 1.25 秒循环" },
+  { id: "tilt-and-squint", label: "倾身眯眼", state: "thinking", figure: "ring", color: "blue", timing: "身体倾斜，双眼收窄 · 1.9 秒循环" },
+  { id: "scan", label: "摆头扫视", state: "searching", figure: "cloud", color: "cyan", timing: "身体轻摆，双眼左右扫动 · 1.3 / 1.5 秒循环" },
+  { id: "wiggle", label: "左右摇摆", state: "working", figure: "ring", color: "blue", timing: "左右交替倾斜，摆动时轻抬 · 1.25 秒循环" },
+  { id: "squash-and-stretch", label: "压缩伸展", state: "working", figure: "square", color: "violet", timing: "先压扁，后拉长上跳 · 1.25 秒循环" },
+  { id: "side-shift", label: "横移回正", state: "sending", figure: "sail", color: "orange", timing: "向一侧移出，反向轻摆后归位 · 1.1 秒循环" },
+  { id: "nod", label: "点头", state: "replying", figure: "bear", color: "cyan", timing: "轻抬后倾一下，再回正 · 1.5 秒循环" },
+  { id: "sway", label: "小幅慢摆", state: "waiting_bot", figure: "square", color: "violet", timing: "以小角度左右摇摆，双眼微移 · 3.2 秒循环" },
+  { id: "single-jump", label: "单次上跳", state: "waiting_user", figure: "flower", color: "pink", timing: "短促上跳，落下时稍微压缩 · 1.1 秒一次", once: 1100 },
+  { id: "bounce", label: "压扁回弹", state: "done", figure: "star", color: "yellow", timing: "先压扁再弹起，落下后轻弹 · 1.1 秒一次", once: 1100 },
+  { id: "blink", label: "眨眼", state: "idle", figure: "pill", color: "orange", timing: "双眼快速闭合再睁开 · 4.7 秒循环" },
 ];
 
 function svgUrl(figure, hue) {
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(renderMascot(figure, hue));
 }
 
-function avatar(figure, hue, content = "") {
+function avatar(figure, hue) {
   const art = renderMascot(figure, hue, "preview-" + ++svgInstance);
-  return `<span class="catalog-avatar" data-figure="${figure}" data-state="idle" aria-hidden="true">${art}${content}</span>`;
+  return `<span class="catalog-avatar" data-figure="${figure}" data-state="idle" aria-hidden="true">${art}</span>`;
 }
 
 function shapeCard(figure, index) {
@@ -67,9 +63,8 @@ function shapeGroup(label, figures) {
 }
 
 function motionCard(example) {
-  const marker = example.marker ? `<span class="motion-marker ${example.marker}">${example.marker === "attention" ? "?" : ""}</span>` : "";
   return `<article class="sample-card" data-motion-example="${example.id}">
-    <div class="sample-stage">${avatar(example.figure, example.color, marker)}</div>
+    <div class="sample-stage">${avatar(example.figure, example.color)}</div>
     <div class="sample-copy">
       <h3>${example.label}</h3>
       <p>${example.timing}</p>
@@ -95,7 +90,7 @@ function catalogMarkup() {
         <span class="wordmark"><img src="${assets}/voice-status/mascot.svg" alt="">OnOSaN Mascot</span>
         <nav aria-label="图鉴分类">
           <a href="#cases">静态形象</a>
-          <a href="#motions">状态动效</a>
+          <a href="#motions">动效</a>
           <a href="#interactions">可交互</a>
         </nav>
       </div>
@@ -115,7 +110,7 @@ function catalogMarkup() {
       </section>
       <section class="catalog-section" id="motions" aria-labelledby="motions-title">
         <div class="section-heading with-control">
-          <div><h2 id="motions-title">状态动效</h2><p>${motionExamples.length} 种动效可以单独播放。空闲和排队默认静止。</p></div>
+          <div><h2 id="motions-title">动效</h2><p>${motionExamples.length} 种动作可单独播放。</p></div>
           <label class="motion-switch"><input type="checkbox" data-motion-toggle> 减少动态效果</label>
         </div>
         <div class="sample-grid">${motionExamples.map(motionCard).join("")}</div>
@@ -195,7 +190,7 @@ gallery.querySelector("#motions").addEventListener("click", event => {
   const model = button.closest(".sample-card").querySelector(".catalog-avatar");
   void model.offsetWidth;
   model.dataset.state = example.state;
-  model.dataset.loop = String(!example.once);
+  if (example.id === "blink") model.dataset.loop = "true";
   button.textContent = example.once ? "重播" : "停止";
   button.setAttribute("aria-label", button.textContent + " " + example.label);
   playing = { button, model, example };
